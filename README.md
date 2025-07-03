@@ -1,63 +1,64 @@
-
-
-# AI-Powered Sales Forecasting Dashboard (FUTURE\_ML\_01)
+# AI-Powered Sales Forecasting Dashboard (FUTURE_ML_01)
 
 ## Project Overview
 
-This project focuses on developing an AI-powered dashboard to predict future sales trends using historical sales data. As part of the Future Interns Machine Learning program, this task demonstrates proficiency in time series forecasting, data analysis, and dashboard visualization. The primary goal is to build a robust model that can accurately forecast sales and present these predictions with clear insights.
+This project implements an AI-powered dashboard to predict future sales trends using historical sales data. Developed as part of the Future Interns Machine Learning program, this task demonstrates practical skills in time series forecasting, data preprocessing, model evaluation, and data visualization. The primary objective is to build a robust forecasting model and present its predictions and insights in a clear, understandable manner.
 
 ## Data Source
 
-The dataset used for this project is:
+The dataset utilized for this project is:
+* **Dataset Name:** `Walmart Data Analysis and Forcasting.csv`
+* **Source:** Kaggle
 
-  * **Dataset Name:** Walmart Data Analysis and Forcasting.csv
-
-The dataset contains historical sales information, including weekly sales, date, and other relevant features.
+This dataset contains historical weekly sales data for Walmart stores, including dates and weekly sales figures, which are crucial for time series analysis.
 
 ## Methodology
 
-The project followed a standard machine learning pipeline for time series forecasting:
+The project follows a standard machine learning workflow tailored for time series forecasting:
 
-### 1\. Data Preprocessing & Exploratory Data Analysis (EDA)
+### 1. Data Preprocessing & Exploratory Data Analysis (EDA)
 
-  * **Loading Data:** The raw CSV file was loaded into a Pandas DataFrame.
-  * **Date Handling:** The 'Date' column was converted to datetime objects and set as the DataFrame's index to facilitate time-series operations.
-  * **Data Cleaning:** Checked for and handled any missing values to ensure data integrity.
-  * **Time Series Decomposition:** The sales time series was decomposed into its trend, seasonal, and residual components to understand underlying patterns (e.g., weekly, yearly seasonality, and overall trend).
-  * **Initial Visualization:** Visualized raw sales data over time to identify preliminary trends, seasonality, and any anomalies.
+* **Data Loading:** The `Walmart Data Analysis and Forcasting.csv` file was loaded into a Pandas DataFrame.
+* **Date Conversion & Indexing:** The 'Date' column was converted from string format (`DD-MM-YYYY`) to datetime objects and then set as the DataFrame's index. The index was sorted chronologically to ensure proper time series analysis.
+* **Initial Visualization:** A line plot of 'Weekly_Sales' over time was generated using `matplotlib` to visually inspect overall trends, potential seasonality, and any outliers.
+* **Time Series Decomposition:** The `seasonal_decompose` function from `statsmodels` was used to break down the 'Weekly_Sales' time series into its additive trend, weekly seasonality, and residual components. This step provided deeper insights into the underlying patterns of the sales data.
 
-### 2\. Model Development (Sales Forecasting)
+### 2. Model Development (Sales Forecasting)
 
-  * **Model Selection:** The **Facebook Prophet** library was chosen for forecasting due to its robust capabilities in handling business time series data with strong seasonal effects and holidays.
-  * **Data Preparation for Prophet:** The DataFrame was formatted to Prophet's required `ds` (datestamp) and `y` (target value - sales) columns.
-  * **Model Training:** The Prophet model was trained on a portion of the historical data (training set) to learn the patterns.
-  * **Forecasting Future Sales:** The trained model was then used to predict sales for a future period, generating point forecasts and uncertainty intervals.
+* **Model Selection:** **Facebook Prophet** was chosen as the forecasting model. Prophet is well-suited for business time series data, handling seasonality, holidays, and trends effectively, and providing interpretable forecasts.
+* **Data Preparation:** The DataFrame was prepared for Prophet by renaming the date column to `ds` and the sales column (`Weekly_Sales`) to `y`, as required by the library.
+* **Model Initialization:** The Prophet model was initialized with `weekly_seasonality=True` and `daily_seasonality=False`, `yearly_seasonality=False` based on the data's granularity and observed patterns.
+* **Model Training:** The Prophet model was fitted using the prepared historical sales data.
+* **Future Forecasting:** A future DataFrame was generated for 365 periods beyond the last available date in the dataset, and the model predicted sales for these future dates, including uncertainty intervals.
+* **Forecast Visualization:** Prophet's built-in plotting functions were used to visualize the overall forecast (actuals + predictions) and its individual components (trend, seasonality).
 
-### 3\. Model Evaluation
+### 3. Model Evaluation
 
-  * **Time-Series Split:** The historical data was chronologically split into a training set and a test set (e.g., last X months/weeks reserved for testing).
-  * **Prediction on Test Set:** The model predicted sales for the unseen test period.
-  * **Metric Calculation:** Key regression metrics were calculated to assess model performance:
-      * **Mean Absolute Error (MAE):** [Value you obtained] - Indicates the average absolute difference between actual and predicted sales.
-      * **Root Mean Squared Error (RMSE):** [Value you obtained] - Penalizes larger errors more heavily.
-      * **Mean Absolute Percentage Error (MAPE):** [Value you obtained]% - Provides error as a percentage, useful for business interpretation.
-  * **Visual Comparison:** A plot was generated to visually compare actual sales versus predicted sales during the test period, along with the uncertainty intervals, to understand the model's fit and any areas of weakness.
+* **Time-Series Split:** The historical data was split into a training set (data before '2012-09-01') and a test set (data from '2012-09-01' onwards) to evaluate the model's performance on unseen data while preserving the temporal order.
+* **Model Retraining for Evaluation:** A new Prophet model was trained specifically on the training data.
+* **Prediction on Test Set:** Predictions were generated for the dates within the test set.
+* **Performance Metrics:** The following regression metrics were calculated using `scikit-learn` to quantify the model's accuracy on the test data:
+    * **Mean Absolute Error (MAE):** 445319.27
+    * **Root Mean Squared Error (RMSE):** 520017.45
+    * **Mean Absolute Percentage Error (MAPE):** 66.26%
+* **Actual vs. Predicted Visualization:** A plot was created to visually compare the actual sales from the test set against the model's predictions for the same period, including the uncertainty interval, providing a clear visual assessment of the forecast accuracy.
 
-### 4\. Dashboard & Visualization
-
-  * A series of visualizations were created to present the forecasting results. These include:
-      * Plots showing historical sales alongside the future sales forecast.
-      * Visualizations of the trend component extracted by Prophet.
-      * Visualizations of the weekly seasonality components.
-    
 
 ## How to Run This Project
 
-To run this project and reproduce the analysis and forecast:
+To set up and run this project locally, follow these steps:
 
-  **Run the Script:**
-    ```
-    python task1.py
+  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/snehal977/FUTURE_ML_01.git](https://github.com/YourGitHubUsername/FUTURE_ML_01.git)
+    cd FUTURE_ML_01
     ```
    
------
+
+    
+
+
+
+
+    
+
